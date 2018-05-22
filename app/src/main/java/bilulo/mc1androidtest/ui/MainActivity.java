@@ -3,7 +3,6 @@ package bilulo.mc1androidtest.ui;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -28,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final TextView textView = findViewById(R.id.tv_helloword);
-
         final RepositoriesInterface repositoriesInterface = RetrofitBuilder.buildRepositoriesInterface();
         final Call<Data> fetchRepositoriesTask = repositoriesInterface.listRepositories("Kotlin", "stars", "1");
 
@@ -39,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
                 mData = response.body();
                 if (mData!=null) {
                     mReposList = mData.getItems();
-                    textView.setText(mReposList.get(2).getName());
                 }
             }
 
