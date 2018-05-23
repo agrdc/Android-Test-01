@@ -7,8 +7,8 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import bilulo.mc1androidtest.R;
-import bilulo.mc1androidtest.models.Data;
-import bilulo.mc1androidtest.models.Repository;
+import bilulo.mc1androidtest.data.Data;
+import bilulo.mc1androidtest.data.Repository;
 import bilulo.mc1androidtest.utils.RepositoriesInterface;
 import bilulo.mc1androidtest.utils.RetrofitBuilder;
 import retrofit2.Call;

@@ -1,6 +1,6 @@
 package bilulo.mc1androidtest.utils;
 
-import bilulo.mc1androidtest.models.Data;
+import bilulo.mc1androidtest.data.Data;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

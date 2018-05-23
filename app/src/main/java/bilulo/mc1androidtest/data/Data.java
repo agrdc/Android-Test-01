@@ -1,4 +1,4 @@
-package bilulo.mc1androidtest.models;
+package bilulo.mc1androidtest.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
