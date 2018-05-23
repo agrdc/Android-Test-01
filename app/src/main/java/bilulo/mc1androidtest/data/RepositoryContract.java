@@ -25,7 +25,7 @@ public class RepositoryContract {
         public static final String COLUMN_LOGIN = "login";
         public static final String COLUMN_STARS = "stars";
         public static final String COLUMN_FORKS = "forks";
-        public static final String COLUMN_AUTHOR_IMAGE = "author_image";
+        public static final String COLUMN_AUTHOR_PICTURE = "author_picture";
 
         public static Uri buildRepoUriWithID(long id) {
             return BASE_CONTENT_URI.buildUpon()

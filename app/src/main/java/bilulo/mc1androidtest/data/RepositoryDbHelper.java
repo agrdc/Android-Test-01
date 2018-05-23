@@ -11,7 +11,7 @@ public class RepositoryDbHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "kotlinrepos.db";
     private static final int DATABASE_VERSION = 1;
 
-    public RepositoryDbHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public RepositoryDbHelper(Context context, SQLiteDatabase.CursorFactory factory) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
 
@@ -26,7 +26,7 @@ public class RepositoryDbHelper extends SQLiteOpenHelper {
                         RepositoryContract.RepositoryEntry.COLUMN_LOGIN + " TEXT NOT NULL, "+
                         RepositoryContract.RepositoryEntry.COLUMN_STARS + " INTEGER NOT NULL, "+
                         RepositoryContract.RepositoryEntry.COLUMN_FORKS + " INTEGER NOT NULL, "+
-                        RepositoryContract.RepositoryEntry.COLUMN_AUTHOR_IMAGE + " TEXT NOT NULL, "+
+                        RepositoryContract.RepositoryEntry.COLUMN_AUTHOR_PICTURE + " TEXT NOT NULL, "+
                         " UNIQUE (" + RepositoryContract.RepositoryEntry.COLUMN_REPO_ID + ") ON CONFLICT REPLACE);";
 
         Log.d(LOG_TAG,"sql create kotlin repos table = " +SQL_CREATE_KOTLIN_REPOS_TABLE);
