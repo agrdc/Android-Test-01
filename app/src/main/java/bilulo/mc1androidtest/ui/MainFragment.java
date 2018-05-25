@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,17 +14,17 @@ import java.util.ArrayList;
 import bilulo.mc1androidtest.R;
 import bilulo.mc1androidtest.adapter.RepositoriesAdapter;
 import bilulo.mc1androidtest.data.Data;
+import bilulo.mc1androidtest.data.DataInteractor;
+import bilulo.mc1androidtest.data.DataInteractorImpl;
 import bilulo.mc1androidtest.data.Repository;
-import bilulo.mc1androidtest.utils.RepositoriesInterface;
-import bilulo.mc1androidtest.utils.RetrofitBuilder;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import bilulo.mc1androidtest.presenter.RepositoriesPresenter;
 
-public class MainFragment extends Fragment {
+
+public class MainFragment extends Fragment implements RepositoriesView{
 
     private ArrayList<Repository> mReposList;
     private Data mData;
+    private RepositoriesPresenter presenter;
     private RecyclerView mRecyclerView;
     private RepositoriesAdapter mAdapter;
     private static final String LOG_TAG = MainFragment.class.getSimpleName();
@@ -39,6 +38,10 @@ public class MainFragment extends Fragment {
         mAdapter = new RepositoriesAdapter();
 
 
+        DataInteractor interactor = new DataInteractorImpl();
+        presenter = new RepositoriesPresenter(interactor);
+        presenter.bind(this);
+
         return rootView;
     }
 
@@ -46,26 +49,15 @@ public class MainFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        final RepositoriesInterface repositoriesInterface = RetrofitBuilder.buildRepositoriesInterface();
-        final Call<Data> fetchRepositoriesTask = repositoriesInterface.listRepositories("Kotlin", "stars", "1");
-
-        fetchRepositoriesTask.enqueue(new Callback<Data>() {
-            @Override
-            public void onResponse(Call<Data> call, Response<Data> response) {
-                mData = response.body();
-                if (mData!=null) {
-                    mReposList = mData.getItems();
-                    mAdapter.setReposData(mReposList);
-                    mRecyclerView.setAdapter(mAdapter);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Data> call, Throwable t) {
-                Log.d(LOG_TAG,t.toString());
-            }
-        });
-
+        presenter.fetchRepositoriesTask("Kotlin","stars","1");
         super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void updateUI(ArrayList<Repository> reposList) {
+        if (reposList!=null && !reposList.isEmpty()) {
+            mAdapter.setReposData(reposList);
+            mRecyclerView.setAdapter(mAdapter);
+        }
     }
 }
